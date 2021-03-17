@@ -1,0 +1,38 @@
+
+/*
+color pallte
+https://coolors.co/cdb4db-ffc8dd-ffafcc-bde0fe-a2d2ff
+
+A2D2FF - Baby blue eyes
+BDE0FE - Urban Blue
+FFAFCC - Nadeshiko pink
+FFC8D0 - Orchid Pink
+CDB4DB - Pink Lavender
+*/
+.bg{
+    background-color: #A2D2FF;
+}
+.login-form{
+    min-width: 300px;
+    padding: 10px;
+    background-color: whitesmoke;
+    width: 30%;
+    position:absolute;
+    left:30%;
+    top:25%;
+    box-shadow:0 0 30px 10px #8babc8;  
+    height:auto;
+    border-radius: 20px 5px;
+}
+.reg-form{
+    min-width: 300px;
+    padding: 10px;
+    background-color: whitesmoke;
+    width: 30%;
+    position:absolute;
+    left:30%;
+    top:10%;
+    box-shadow:0 0 30px 10px #8babc8;  
+    height:auto;
+    border-radius: 20px 5px;
+}

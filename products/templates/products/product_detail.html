@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{%load static%}
+{% block scripts %}
+<script src="{%static 'js/prudocts.js'%}"></script>
+{%endblock scripts%}
+{% block styles %}
+{%endblock styles%}
+{% block content %}
+
+<div class="card" style="margin:10px;">
+    <div class="card-header">
+        <h4 class="card-title">{{product.title}}</h4>
+    </div>
+    <div class="card-body">
+        <p class="card-subtitle">{{product.description}}</p>
+    </div>
+</div>
+
+
+{% endblock content %}}

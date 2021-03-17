@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{%load static%}
+{% block scripts %}
+<script src="{%static 'js/login.js'%}"></script>
+{%endblock scripts%}
+{% block styles %}
+{%endblock styles%}
+{% block content %}
+<div>
+  <div class="container">
+    <form class="login-form" method="post">
+      {%csrf_token%}
+      <!--  Form  -->
+      <div class="container-fluid">
+        <h1 class="display-4">Login</h1>
+        <!--  Username  -->
+        <div class="form-group">
+          <label for="username">User name</label>
+          <input type="text" name="username" id="username" autocomplete="username" class="form-control"
+            placeholder="Username" aria-describedby="usernameHelp">
+          <small id="usernameHelp" class="text-muted">Insert your username</small>
+        </div>
+        <!--  Password  -->
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" autocomplete="current-password" class="form-control" name="password" id="password"
+            placeholder="Password">
+        </div>
+        <button name="login" type="submit" class="btn btn-success">Login</button>
+        <button name="register" class="btn btn-info">Register</button>
+      </div>
+      </from>
+  </div>
+</div>
+{% endblock content %}}

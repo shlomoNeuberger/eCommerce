@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{%load static%}
+{% block scripts %}
+<script src="{%static 'js/prudocts.js'%}"></script>
+{%endblock scripts%}
+{% block styles %}
+{%endblock styles%}
+{% block content %}
+
+{% for product in product_list %}
+<div class="card" style="margin:10px;width: 18rem;">
+    <div class="card-header">
+        <h4 class="card-title">{{product.title}}</h4>
+    </div>
+    <div class="card-body">
+
+        <h6 class="card-subtitle text-muted">{{product.description}}</h6>
+        <a href="{% url 'products:product' product.id %}" class="card-link">more info</a>
+    </div>
+</div>
+{% endfor %}
+
+
+{% endblock content %}}

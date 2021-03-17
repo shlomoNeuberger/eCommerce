@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{%load static%}
+{% block scripts %}
+<script src="{%static 'js/register.js'%}"></script>
+{%endblock scripts%}
+{% block styles %}
+{%endblock styles%}
+{% block content %}
+<div>
+    <div class="container">
+        <form class="reg-form" method="post">
+            {%csrf_token%}
+            <!--  Form  -->
+            <div class="container-fluid">
+                <h1 class="display-4">Register</h1><!--  First name  -->
+                <div class="form-group">
+                    <label for="first_name">First Name</label>
+                    <input type="text" class="form-control" name="first_name" id="first_name"
+                        aria-describedby="firstHelpId" autocomplete="cc-given-name" placeholder="John">
+                    <small id="firstHelpId" class="form-text text-muted">Insert your first name</small>
+                </div>
+                <!--  Last name  -->
+                <div class="form-group">
+                    <label for="last_name">Last Name</label>
+                    <input type="text" class="form-control" name="last_name" id="last_name"
+                        aria-describedby="lastH elpId" autocomplete="cc-family-name" placeholder="Doe">
+                    <small id="lastHelpId" class="form-text text-muted">Insert your last name</small>
+                </div>
+                <!--  Username  -->
+                <div class="form-group">
+                    <label for="username">User name</label>
+                    <input type="text" name="username" id="username" class="form-control" placeholder="Username"
+                        autocomplete="username" aria-describedby="usernameHelp">
+                    <small id="usernameHelp" class="text-muted">Insert your username</small>
+                </div>
+                <!--  Password  -->
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" id="password"
+                        autocomplete="new-password" placeholder="Password">
+                </div>
+                <!--  Email  -->
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
+                        autocomplete="email" placeholder="Email">
+                    <small id="emailHelpId" class="form-text text-muted">Insert your email address</small>
+                </div>
+                <button name="register" class="btn btn-info">Register</button>
+            </div>
+            </from>
+    </div>
+</div>
+{% endblock content %}}
