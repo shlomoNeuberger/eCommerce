@@ -1,4 +1,5 @@
 from django.http.response import Http404
+from django.contrib.auth.models import User
 from django.shortcuts import redirect, render
 from django.views import View
 from django.http import HttpRequest
@@ -85,9 +86,8 @@ class RegisterView(View):
         if not register_form.is_valid():
             return Http404("What are you doing?")  # redirect("login:Error")
 
-        print(register_form.cleaned_data)
-
         next_ = request.POST.get("next", None)
+        User.objects.create(**register_form.cleaned_data)
         if is_safe_url(next_, request.get_host()):
             return redirect(next_)
         else:
