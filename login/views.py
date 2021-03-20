@@ -18,7 +18,10 @@ class LoginView(View):
         Get methode will return the login
         HTML form
         """
-        return render(request, "login.html")
+        if request.user.is_authenticated:
+            return redirect("products:featured_products")
+        else:
+            return render(request, "login.html")
 
     def post(self, request: HttpRequest):
         """
@@ -47,6 +50,23 @@ class LoginView(View):
         else:
             redirect(f"login:login id={5}")
         return redirect("login:login")
+
+
+class LogoutView(View):
+    """
+    Base Login view
+    """
+
+    def get(self, request: HttpRequest):
+        """
+        Get methode will return the login
+        HTML form
+        """
+        if request.user.is_authenticated:
+            logout(request)
+            return redirect("login:login")
+        else:
+            return render(request, "login.html")
 
 
 class RegisterView(View):

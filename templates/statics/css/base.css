@@ -36,3 +36,7 @@ CDB4DB - Pink Lavender
     height:auto;
     border-radius: 20px 5px;
 }
+
+img.item-detail{
+    width: 200px;
+}
