@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {%load static%}
 {% block scripts %}
-<script src="{%static 'js/cart.js'%}"></script>
+<script src="{%static 'js/chackout.js'%}"></script>
 {%endblock scripts%}
 {% block styles %}
 <style>
@@ -13,8 +13,11 @@
 {%endblock styles%}
 {% block content %}
 <div class="cart container bg-light px-2 mt-2">
-    <h1>Cart</h1>
-    {%include 'carts/snippets/cart_table.html' with cart=cart removeable=True chackout=True%}
+    <h1>Chackout</h1>
+    {%include 'carts/snippets/cart_table.html' with cart=order.cart removeable=False%}
+    {%include 'carts/snippets/chackout_tabel.html' with order=order%}
 </div>
+
+
 
 {% endblock content %}}

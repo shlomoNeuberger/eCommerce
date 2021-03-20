@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.http import HttpRequest
 from random import randint
 from .models import Cart
+from orders.models import Order
 # Create your views here.
 
 
@@ -33,3 +34,13 @@ def cart_update(request: HttpRequest):
         request.session['cart_items'] = products_count
 
     return redirect("cart:home")
+
+
+def chackout(request: HttpRequest):
+    cart_obj, created_cart = Cart.objects.new_or_get(request)
+    order_obj = None
+    if created_cart or cart_obj.products.count() == 0:
+        return redirect("cart:home")
+    else:
+        order_obj, _ = Order.objects.get_or_create(cart=cart_obj)
+    return render(request, "carts/checkout.html", {'order': order_obj})

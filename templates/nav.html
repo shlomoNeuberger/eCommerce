@@ -45,14 +45,14 @@
             </ul>
             {% include 'search/snippets/form.html' %}
             {% if user.is_authenticated %}
-            <div class="my-1 ms-2 ms-lg-2 ms-sm-0">
+            <div class="my-1 ms-2 ms-lg-2 ms-sm-0" id="badge_zone">
                 <h5 class="my-1">
                     <span id="user_badge" class="hovers py-2 px-auto badge  bg-primary" style="color: white;">
                         Hello {{user.username}}
                     </span>
+                    <a role="button" id="logout" href="{%url 'login:logout'%}"
+                        class="hovers btn btn-sm btn-outline-danger my-2 my-sm-0">Logout</a>
                 </h5>
-                <a role="button" id="logout" href="{%url 'login:logout'%}"
-                    class="hovers btn btn-sm btn-outline-danger my-2 my-sm-0">Logout</a>
             </div>
             {% else %}
             <a role="button" href="{%url 'login:login'%}" class="btn btn-outline-success my-auto ms-2">Login</a>

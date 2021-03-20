@@ -8,8 +8,9 @@
 {% block content %}
 <div>
   <div class="container">
-    <form class="login-form" method="post">
+    <form id="login_from" class="login-form" method="post">
       {%csrf_token%}
+      <input type="hidden" name="next" value="">
       <!--  Form  -->
       <div class="container-fluid">
         <h1 class="display-4">Login</h1>
@@ -17,18 +18,18 @@
         <div class="form-group">
           <label for="username">User name</label>
           <input type="text" name="username" id="username" autocomplete="username" class="form-control"
-            placeholder="Username" aria-describedby="usernameHelp">
+            placeholder="Username" aria-describedby="usernameHelp" required>
           <small id="usernameHelp" class="text-muted">Insert your username</small>
         </div>
         <!--  Password  -->
         <div class="form-group">
           <label for="password">Password</label>
-          <input type="password" autocomplete="current-password" class="form-control" name="password" id="password"
-            placeholder="Password">
+          <input type="password" autocomplete="current-password" id="password" class="form-control" name="password"
+            id="password" placeholder="Password" required>
         </div>
         <div class="btn-group mt-2">
-          <button name="login" type="submit" class="btn btn-success">Login</button>
-          <button name="register" class="btn btn-info">Register</button>
+          <button name="login" id="login_btn" type="submit" class="btn btn-success">Login</button>
+          <a name="register" href="{%url 'login:register'%}" class="btn btn-info">Register</a>
         </div>
       </div>
       </from>
