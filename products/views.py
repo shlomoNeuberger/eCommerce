@@ -1,3 +1,4 @@
+from carts.models import Cart
 from typing import Any, Dict
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
@@ -33,7 +34,7 @@ class ProductDetailView(DetailView):
             we use it for adding more data to context
         """
         context = super().get_context_data(**kwargs)
-        print(context)
+        context['cart'], _ = Cart.objects.new_or_get(self.request)
         return context
 
 
@@ -64,5 +65,5 @@ class ProductFeaturedDetailView(DetailView):
             we use it for adding more data to context
         """
         context = super().get_context_data(**kwargs)
-        print(context)
+        context['cart'] = Cart.objects.new_or_get(self.request)
         return context

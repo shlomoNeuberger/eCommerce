@@ -15,10 +15,8 @@ class SearchListView(ListView):
         request = self.request
         query = request.GET.get('q', None)
         if query:
-            products = Product.objects.filter(title__icontains=query)
-            if products.count() > 0:
-                return Product.objects.filter(title__icontains=query)
-        return Product.objects.featured()
+            return Product.objects.search(query)
+        return Product.objects.none()
 
     def get_context_data(self, **kwargs):
         """

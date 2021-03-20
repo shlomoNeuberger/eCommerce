@@ -1,0 +1,9 @@
+<form method="POST" class="float-end" action="{%url 'cart:update' %}">
+    {% csrf_token %}
+    <input type="hidden" name="product_slug" value="{{product.slug}}">
+    {%if product in cart.products.all %}
+    <input type="submit" value="Remove" name="remove" class="btn btn-danger" />
+    {%else%}
+    <input type="submit" value="Add" name="add" class="btn btn-success" />
+    {%endif%}
+</form>

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{%load static%}
+{% block scripts %}
+<script src="{%static 'js/cart.js'%}"></script>
+{%endblock scripts%}
+{% block styles %}
+<style>
+    .cart {
+        box-shadow: 5px 10px 5px #8babc8;
+        border-radius: 5px;
+    }
+</style>
+{%endblock styles%}
+{% block content %}
+<div class="cart container bg-light px-2 mt-2">
+    {%if cart.products.exists%}
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {%for pro in cart.products.all%}
+            <tr>
+                <th scope="row">{{forloop.counter}}</th>
+                <td><a href="{%url 'products:product' slug=pro.slug%}">{{pro.title}}</a></td>
+                <td>{{pro.price}}</td>
+                <td>{%include 'carts/snippets/add_remove_product.html' with product=pro %}</td>
+            </tr>
+            {%endfor%}
+            <tr>
+                <th scope="row" colspan="3">Subtotal: </th>
+                <td>{{cart.subtotal}}</td>
+            </tr>
+            <tr>
+                <th scope="row" colspan="3">Total: </th>
+                <td>{{cart.total}}</td>
+            </tr>
+        </tbody>
+    </table>
+    {%else%}
+    No products
+    {%endif%}
+
+</div>
+
+{% endblock content %}}
