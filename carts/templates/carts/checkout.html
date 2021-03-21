@@ -13,14 +13,36 @@
 {%endblock styles%}
 
 {% block content %}
+
+
+
+
 {% if bill_profile%}
-<div class="cart container bg-light px-2 mt-2">
-    <h1>Chackout ({{order.order_id }})</h1>
-
-    {%include 'billing/snippets/bill_data.html' with info=bill_profile%}
-    {%include 'carts/snippets/cart_table.html' with cart=order.cart removeable=False%}
-    {%include 'carts/snippets/chackout_tabel.html' with order=order%}
-
+<div class="container cart bg-light px-2 mt-2">
+    <div class="row">
+        <h1>Chackout ({{order.order_id }})</h1>
+        {%if not order.shpping_address and not order.billing_address %}
+        <div class="col col-5 col-md-5">
+        {%else%}
+        <div class="col col-12 col-md-12">
+        {%endif%}
+        {%include 'billing/snippets/bill_data.html' with info=bill_profile%}
+        {%include 'carts/snippets/cart_table.html' with cart=order.cart removeable=False%}
+        {%include 'carts/snippets/chackout_tabel.html' with order=order%}
+    </div>
+    {%if not order.shpping_address or not order.billing_address %}
+    <div class="col col-1 col-md-1"></div>
+    <div class="col col-5 col-md-5">
+        <div class="row">
+            {% if not order.shipping_address%}
+            {%include 'billing/snippets/shipping_adress.html' with type='shipping' add=order.shpping_address next_=request.path%}
+            {% elif not order.billing_address%}
+                {%include 'billing/snippets/shipping_adress.html' with type='billing' add=order.billing_address next_=request.path%}
+            </div>
+            {% endif %}
+        </div>
+        {%endif%}
+    </div>
 </div>
 {%else%}
 <div class="row cart bg-light px-2 mt-2">

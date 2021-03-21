@@ -24,6 +24,7 @@ urlpatterns = [
     path('ecommerce/', include("products.urls", namespace="products")),
     path('search/', include("search.urls", namespace="search")),
     path('cart/', include("carts.urls", namespace="cart")),
+    path('bill/', include("billing.urls", namespace="bill")),
     path('', enterPoint, name="main"),
 
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

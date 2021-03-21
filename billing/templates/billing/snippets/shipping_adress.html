@@ -1,0 +1,39 @@
+<form id="{{type}}_adress_form" action="{%url 'bill:address_shipping'%}" method="POST">
+    <h4>{{type}} address</h4>
+    {%csrf_token%}
+    <input type="hidden" name="next_" value="{{next_}}" />
+    <input type="hidden" name="type" value="{{type}}" />
+    <div class="form-group">
+        <label for="id_address_line_1">Address line 1:</label>
+        <input class="form-control" type=" text" value="{{add.address_line_1}}" name="address_line_1" maxlength="100"
+            required="" id="id_address_line_1">
+    </div>
+    <div class="form-group">
+        <label for="id_address_line_2">Address line 2:</label>
+        <input class="form-control" type="text" value="{{add.address_line_w}}" name="address_line_2" maxlength="100"
+            id="id_address_line_2">
+    </div>
+    <div class="form-group">
+        <label for="id_city">City:</label>
+        <input class="form-control" type="text" value="{{add.city}}" name="city" maxlength="100" required=""
+            id="id_city">
+    </div>
+    <div class="form-group">
+        <label for="id_country">Country:</label>
+        <input class="form-control" type="text" value="{{add.country}}" name="country" maxlength="100" required=""
+            id="id_country">
+    </div>
+    <div class="form-group">
+        <label for="id_state">State:</label>
+        <input class="form-control" type="text" value="{{add.state}}" name="state" maxlength="100" required=""
+            id="id_state">
+    </div>
+    <div class="form-group">
+        <label for="id_postal_code">Postal code:</label>
+        <input class="form-control" type="text" value="{{add.postal_code}}" name="postal_code" maxlength="100"
+            required="" id="id_postal_code">
+    </div>
+    <div class="btn-group mt-2">
+        <button name="login" id="address_send" type="submit" class="btn btn-success">Set address</button>
+    </div>
+</form>

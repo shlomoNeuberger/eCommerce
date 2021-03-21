@@ -14,11 +14,17 @@
             <th>Total cost</th>
             <td>{{order.total}}</td>
         </tr>
-        <tr>
-            <th scope="row" colspan="3">
-                <a class="btn btn-primary float-end" href="{%url 'cart:chackout'%}">Pay <i
-                        class="far fa-credit-card"></i></a>
-            </th>
-        </tr>
     </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="3">
+                <form action="{%url 'cart:chackout' %}" method="POST">
+                    <button type="submit" class="btn btn-primary float-end">
+                        {%csrf_token%}
+                        Pay <i class="far fa-credit-card"></i>
+                    </button>
+                </form>
+            </td>
+        </tr>
+    </tfoot>
 </table>

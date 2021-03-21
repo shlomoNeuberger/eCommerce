@@ -44,7 +44,6 @@ class Product(models.Model):
     objects = ProductManger()
 
     def __str__(self) -> str:
-        self.get_tags()
         return f"{self.title}"
 
     def get_tags(self):
