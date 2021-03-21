@@ -32,6 +32,11 @@
                     <input type="text" name="username" id="username" class="form-control" placeholder="Username"
                         autocomplete="username" aria-describedby="usernameHelp">
                     <small id="usernameHelp" class="text-muted">Insert your username</small>
+                    {%if username%}
+                    <div class="alert alert-danger" role="alert">
+                        This Username alredy used
+                    </div>
+                    {%endif%}
                 </div>
                 <!--  Password  -->
                 <div class="form-group">
@@ -45,6 +50,11 @@
                     <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelpId"
                         autocomplete="email" placeholder="Email">
                     <small id="emailHelpId" class="form-text text-muted">Insert your email address</small>
+                    {%if email%}
+                    <div class="alert alert-danger" role="alert">
+                        This Email alredy used
+                    </div>
+                    {%endif%}
                 </div>
                 <button name="register" class="btn btn-info">Register</button>
             </div>

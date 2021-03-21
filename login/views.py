@@ -23,8 +23,13 @@ class LoginView(View):
         HTML form
         """
         next_ = request.GET.get("next")
-        print(next_)
-        return render(request, "login.html", {'next_': next_})
+        msg = request.session.get("login_msg", None)
+        try:
+            del request.session['login_msg']
+        except:
+            pass
+
+        return render(request, "login.html", {'next_': next_, 'msg': msg})
 
     def post(self, request: HttpRequest):
         """
@@ -46,6 +51,7 @@ class LoginView(View):
             if next_ != "None" and is_safe_url(next_, request.get_host()) and 'login' not in next_:
                 return redirect(next_)
             return redirect("main")
+        request.session['login_msg'] = "username/password error"
         return redirect("login:login")
 
 
@@ -75,7 +81,16 @@ class RegisterView(View):
         """
         if request.user.is_authenticated:
             return redirect('main')
-        return render(request, "register.html")
+        context = {
+            'username': request.session.get('username_msg', None),
+            'email': request.session.get('register_msg', None),
+        }
+        try:
+            del request.session['username_msg']
+            del request.session['register_msg']
+        except:
+            pass
+        return render(request, "register.html", context)
 
     def post(self, request: HttpRequest):
         """
@@ -92,12 +107,25 @@ class RegisterView(View):
 
         next_ = request.POST.get("next", None)
         print(register_form.cleaned_data)
-        user, _ = User.objects.get_or_create(**register_form.cleaned_data)
-        login(request, user)
-        if is_safe_url(next_, request.get_host()):
-            return redirect(next_)
+        user, creted = User.objects.get_or_create(
+            username=register_form.cleaned_data['username'])
+        if creted and user.email != register_form.cleaned_data['email']:
+            user.email = register_form.cleaned_data['email']
+            user.set_password(register_form.cleaned_data['password'])
+            user.first_name = register_form.cleaned_data['first_name']
+            user.last_name = register_form.cleaned_data['last_name']
+            user.save()
+            login(request, user)
+            if is_safe_url(next_, request.get_host()):
+                return redirect(next_)
+            else:
+                return redirect("main")
         else:
-            return redirect("main")
+            if not creted:
+                request.session['username_msg'] = "username is used"
+            if user.email == register_form.cleaned_data['email']:
+                request.session['register_msg'] = "username is used"
+            return redirect("login:register")
 
 
 class GuestLogin(View):

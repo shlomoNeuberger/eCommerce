@@ -5,6 +5,11 @@
     <!--  Form  -->
     <div class="container-fluid">
         <h1 class="display-4">Login</h1>
+        {%if msg%}
+        <div class="alert alert-danger" role="alert">
+            {{msg}}
+        </div>
+        {%endif%}
         <!--  Username  -->
         <div class="form-group">
             <label for="username">User name</label>

@@ -5,8 +5,12 @@
 <div class="card-group">
     {%endif%}
     <div class=" card" style="margin:10px;width: 18rem;">
+
         <div class="card-header">
             <h4 class="card-title">{{product.title}}
+                {%if product.image %}
+                <img class="float-end" width="70px" src="{{product.image.url}}" alt="image of {{product.title}}">
+                {%endif%}
                 {% if product.featured %}
                 <span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -20,16 +24,22 @@
             </h4>
         </div>
         <div class="card-body">
-            <h6 class="card-subtitle text-muted">{{product.description|truncatewords:12}}</h6>
-            <div class="mt-2">
-                <a href="{% if product.featured %}
-                        {% url 'products:featured_product' product.slug %}
-                        {%else%}
-                        {% url 'products:product' product.slug %}
-                        {% endif %}" class="btn btn-primary btn-sm card-link">more
-                    info</a>
-            </div>
+            <div class="row">
+                <div class="col-4">
+                    <h6 class="card-subtitle text-muted">{{product.description|truncatewords:12}}</h6>
+                </div>
 
+            </div>
+            <div class="row">
+                <div class="mt-2">
+                    <a href="{% if product.featured %}
+                    {% url 'products:featured_product' product.slug %}
+                    {%else%}
+                    {% url 'products:product' product.slug %}
+                    {% endif %}" class="btn btn-primary btn-sm card-link">more
+                        info</a>
+                </div>
+            </div>
         </div>
         <div class="row ">
             <span class="ms-2 text-muted">
