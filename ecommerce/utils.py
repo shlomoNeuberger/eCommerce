@@ -46,10 +46,7 @@ def unique_order_generator(instance, new_order_id=None):
     This is for a Django project and it assumes your instance 
     has a model with a slug field and a title character (char) field.
     """
-    if new_order_id is not None:
-        oreder_id = f"{random_string_generator(size=4)}-{oreder_id}"
-    else:
-        oreder_id = slugify(instance.cart.id)
+    oreder_id = f"{random_string_generator(size=4)}-{instance.cart.id}"
 
     Klass = instance.__class__
     qs_exists = Klass.objects.filter(order_id=oreder_id).exists()

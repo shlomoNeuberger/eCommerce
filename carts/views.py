@@ -1,3 +1,4 @@
+from login.models import GuestEmail
 from django.http.response import Http404
 from products.models import Product
 from django.shortcuts import get_object_or_404, redirect, render
@@ -5,6 +6,7 @@ from django.http import HttpRequest
 from random import randint
 from .models import Cart
 from orders.models import Order
+from billing.models import BillingProfile
 # Create your views here.
 
 
@@ -39,8 +41,24 @@ def cart_update(request: HttpRequest):
 def chackout(request: HttpRequest):
     cart_obj, created_cart = Cart.objects.new_or_get(request)
     order_obj = None
+
+    bill_profile = None
+    if request.user.is_authenticated:
+        bill_profile, _ = BillingProfile.objects.get_or_create(
+            user=request.user, email=request.user.email)
+    elif request.session.get("guest_id", None):
+        guest = GuestEmail.objects.get(id=request.session.get("guest_id"))
+        bill_profile, _ = BillingProfile.objects.get_or_create(
+            email=guest.email)
+
     if created_cart or cart_obj.products.count() == 0:
         return redirect("cart:home")
     else:
-        order_obj, _ = Order.objects.get_or_create(cart=cart_obj)
-    return render(request, "carts/checkout.html", {'order': order_obj})
+        order_obj, _ = Order.objects.get_or_create(
+            cart=cart_obj, billing_profile=bill_profile)
+    context = {
+        'order': order_obj,
+        'bill_profile': bill_profile,
+    }
+
+    return render(request, "carts/checkout.html", context)

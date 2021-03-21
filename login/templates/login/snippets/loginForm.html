@@ -1,0 +1,26 @@
+<form action="{%url 'login:login'%}" id="login_from" {%if embed%} class="" {%else%} class="login-form" {%endif%}
+    method="post">
+    {%csrf_token%}
+    <input type="hidden" name="next_" value="{{next_}}" />
+    <!--  Form  -->
+    <div class="container-fluid">
+        <h1 class="display-4">Login</h1>
+        <!--  Username  -->
+        <div class="form-group">
+            <label for="username">User name</label>
+            <input type="text" name="username" id="username" autocomplete="username" class="form-control"
+                placeholder="Username" aria-describedby="usernameHelp" required>
+            <small id="usernameHelp" class="text-muted">Insert your username</small>
+        </div>
+        <!--  Password  -->
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" autocomplete="current-password" id="password" class="form-control" name="password"
+                id="password" placeholder="Password" required>
+        </div>
+        <div class="btn-group mt-2">
+            <button name="login" id="login_btn" type="submit" class="btn btn-success">Login</button>
+            <a name="register" href="{%url 'login:register'%}" class="btn btn-info">Register</a>
+        </div>
+    </div>
+</form>

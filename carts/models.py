@@ -18,6 +18,7 @@ class CartModelManger(models.Manager):
         if not is_created and request.user.is_authenticated:
             cart_obj.user = request.user
             cart_obj.save()
+        request.session["cart_id"] = cart_obj.id
         return cart_obj, is_created
 
 
@@ -29,9 +30,9 @@ class Cart(models.Model):
     total = models.DecimalField(default=0.00, max_digits=7, decimal_places=2)
     discount = models.DecimalField(
         default=0.00, max_digits=5, decimal_places=0)
-    updated = models.DateTimeField(null=True, blank=True,)
+    updated = models.DateTimeField(null=True, blank=True, auto_now=True)
     timestemp = models.DateTimeField(auto_now_add=True)
-
+    active = models.BooleanField(default=True)
     objects = CartModelManger()
 
     def __str__(self) -> str:

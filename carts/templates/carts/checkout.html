@@ -11,12 +11,56 @@
     }
 </style>
 {%endblock styles%}
+
 {% block content %}
+{% if bill_profile%}
 <div class="cart container bg-light px-2 mt-2">
-    <h1>Chackout</h1>
+    <h1>Chackout ({{order.order_id }})</h1>
+
+    {%include 'billing/snippets/bill_data.html' with info=bill_profile%}
     {%include 'carts/snippets/cart_table.html' with cart=order.cart removeable=False%}
     {%include 'carts/snippets/chackout_tabel.html' with order=order%}
+
 </div>
+{%else%}
+<div class="row cart bg-light px-2 mt-2">
+    <p class="col-4 align-content-center">How would you like to go?</p>
+    <button class="btn col-4 px-2 my-2 btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModel"
+        id="modelToggel">Login</button>
+    <button class="btn col-4 px-2 my-2 btn-outline-primary" data-bs-toggle="modal" data-bs-target="#GeustModel"
+        id="modelToggel">Guest</button>
+</div>
+<div class="modal fade" id="loginModel" tabindex="-1" aria-labelledby="loginModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {%include 'login/snippets/loginForm.html' with embed=True next_=request.path%}
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="GeustModel" tabindex="-1" aria-labelledby="guestModelLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                {%include 'login/snippets/GuestForm.html' with embed=True next_=request.path%}
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+{%endif%}
 
 
 

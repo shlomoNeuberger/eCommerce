@@ -1,0 +1,19 @@
+<form action="{%url 'login:guest'%}" id="login_from" {%if embed%} class="" {%else%} class="login-form" {%endif%}
+    method="post">
+    {%csrf_token%}
+    <input type="hidden" name="next_" value="{{next_}}" />
+    <!--  Form  -->
+    <div class="container-fluid">
+        <h1 class="display-4">Guest sign in</h1>
+        <!--  Emai  -->
+        <div class="form-group">
+            <label for="username">User name</label>
+            <input type="text" name="email" id="email" autocomplete="email" class="form-control" placeholder="Email"
+                aria-describedby="emailHelp" required>
+            <small id="usernameHelp" class="text-muted">Insert your username</small>
+        </div>
+        <div class="btn-group mt-2">
+            <button name="login" id="login_btn" type="submit" class="btn btn-success">Set email</button>
+        </div>
+    </div>
+</form>

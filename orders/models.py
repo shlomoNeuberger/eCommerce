@@ -1,8 +1,10 @@
 from ecommerce.utils import unique_order_generator
 from django.db import models
-from django.db.models.deletion import SET_NULL
+from django.db.models.deletion import CASCADE, SET_NULL
 from carts.models import Cart
 from django.db.models.signals import post_save, pre_save
+from math import fsum
+from billing.models import BillingProfile
 # Create your models here.
 
 ORDERS_STATUS_CHOICES = (
@@ -22,14 +24,17 @@ class Order(models.Model):
     total = models.DecimalField(default=0.00, max_digits=7, decimal_places=2)
     shipping_total = models.DecimalField(
         default=0.00, max_digits=7, decimal_places=2)
+    billing_profile = models.ForeignKey(
+        BillingProfile, null=True, on_delete=SET_NULL)
+    active = models.BooleanField(default=True)
 
     def __str__(self) -> str:
-        return self.order_id
+        return f'{self.order_id}'
 
     def update_total(self):
         total = self.cart.total
         shipping_total = self.shipping_total
-        new_total = total + shipping_total
+        new_total = fsum([total, shipping_total])
         self.total = new_total
         self.save()
         return new_total
