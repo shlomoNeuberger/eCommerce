@@ -12,4 +12,10 @@ the backend and the front end is with Django
 <li> carts - manges the item held in the cart and the chackout mechanism 
 <li> tags - component for better search, improving search by adding tags to item
 <ul>
-
+<hr>
+<h1>Login</h1>
+<img src="https://raw.githubusercontent.com/shlomoNeuberger/eCommerce/master/login.gif"/>  
+  
+ 
+<h1>Cart and Checkout</h1>
+<img src="https://raw.githubusercontent.com/shlomoNeuberger/eCommerce/master/cheackout.gif"/>  
