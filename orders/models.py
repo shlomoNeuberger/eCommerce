@@ -85,7 +85,6 @@ class Order(models.Model):
             self.status = "paid"
             self.save()
 
-
 def Order_pre_save_orderID_gen(sender, instance, *args, **kwargs):
     if not instance.order_id:
         instance.order_id = unique_order_generator(instance)

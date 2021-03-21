@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{%load static%}
+{% block scripts %}
+<script src="{%static 'js/chackout.js'%}"></script>
+{%endblock scripts%}
+{% block styles %}
+<style>
+    .cart {
+        box-shadow: 5px 10px 5px #8babc8;
+        border-radius: 5px;
+    }
+</style>
+{%endblock styles%}
+
+{% block content %}
+
+<div class="container text-center cart bg-light px-4 py-4 mt-2">
+    <h1 class="display-1">
+        Thank you for your order
+    </h1>
+</div>
+
+
+
+{% endblock content %}}

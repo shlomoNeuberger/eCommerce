@@ -81,3 +81,6 @@ class Address(models.Model):
 
     def __str__(self) -> str:
         return f"{self.billing_profile}"
+
+    def pretty_print (self):
+        return f"{self.address_line_1} ,{self.city} ,{self.postal_code}"

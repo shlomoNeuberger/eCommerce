@@ -7,7 +7,7 @@ from django.views import View
 from random import randint
 from .models import Cart
 from orders.models import Order
-from billing.models import BillingProfile
+from billing.models import Address, BillingProfile
 from billing.forms import AddressForm
 # Create your views here.
 
@@ -59,9 +59,12 @@ class ChackoutView(View):
         else:
             order_obj, _ = Order.objects.new_or_get(
                 cart=cart_obj, billing_profile=bill_profile)
+        adress_qs = Address.objects.filter(billing_profile=bill_profile)
+        print(adress_qs)
         context = {
             'order': order_obj,
             'bill_profile': bill_profile,
+            'adress_qs':adress_qs,
         }
 
         return render(request, "carts/checkout.html", context)
@@ -80,5 +83,11 @@ class ChackoutView(View):
                 del request.session['cart_items']
             except:
                 pass
-            return redirect("main")
+            return redirect("cart:done")
         return redirect('cart:chackout')
+
+class ChackoutDone(View):
+    def get(self,request:HttpRequest):
+        return render(request,'carts/thank_you.html',{})
+    def post(self,request:HttpRequest):
+        return render(request,'carts/thank_you.html',{})

@@ -14,30 +14,24 @@
 
 {% block content %}
 
-
-
-
 {% if bill_profile%}
-<div class="container cart bg-light px-2 mt-2">
+<div class="container cart bg-light px-4 py-4 mt-2">
     <div class="row">
         <h1>Chackout ({{order.order_id }})</h1>
-        {%if not order.shpping_address and not order.billing_address %}
-        <div class="col col-5 col-md-5">
-        {%else%}
-        <div class="col col-12 col-md-12">
-        {%endif%}
-        {%include 'billing/snippets/bill_data.html' with info=bill_profile%}
+    {%if not order.shpping_address or not order.billing_address %}
+    <div class="col col-12 col-md-12">
+        <div class="row mx-4 my-2">
+            {% if not order.shipping_address%}
+                {%include 'billing/snippets/shipping_adress.html' with type='shipping' qs=adress_qs add=order.shpping_address next_=request.path%}
+            {% elif not order.billing_address%}
+                {%include 'billing/snippets/shipping_adress.html' with type='billing' qs=adress_qs add=order.billing_address next_=request.path%}
+            {%else%}
+        {%include 'billing/snippets/bill_data.html' with addS=order.shipping_address addB=order.billing_address info=bill_profile %}
         {%include 'carts/snippets/cart_table.html' with cart=order.cart removeable=False%}
         {%include 'carts/snippets/chackout_tabel.html' with order=order%}
-    </div>
-    {%if not order.shpping_address or not order.billing_address %}
-    <div class="col col-1 col-md-1"></div>
-    <div class="col col-5 col-md-5">
-        <div class="row">
-            {% if not order.shipping_address%}
-            {%include 'billing/snippets/shipping_adress.html' with type='shipping' add=order.shpping_address next_=request.path%}
-            {% elif not order.billing_address%}
-                {%include 'billing/snippets/shipping_adress.html' with type='billing' add=order.billing_address next_=request.path%}
+
+
+
             </div>
             {% endif %}
         </div>
