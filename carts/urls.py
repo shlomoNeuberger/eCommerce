@@ -8,7 +8,7 @@ urlpatterns = [
     path("", cart_home, name="home"),
     path("update", cart_update, name="update"),
     path("chackout", ChackoutView.as_view(), name="chackout"),
-    path("thank-you", ChackoutDone.as_view(), name="done"),
+    path("thank-you", ChackoutDone, name="done"),
 
 
 ]

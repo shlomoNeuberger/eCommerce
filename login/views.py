@@ -65,7 +65,11 @@ class LogoutView(View):
         Get methode will return the login
         HTML form
         """
-        print('logout', request.user.is_authenticated)
+        try:
+            del request.session['username_msg']
+            del request.session['register_msg']
+        except:
+            pass
         if request.user.is_authenticated:
             logout(request)
             return redirect("login:login")

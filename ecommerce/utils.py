@@ -1,6 +1,7 @@
 
 import os
 import random
+import re
 import string
 from django.utils.text import slugify
 
@@ -54,3 +55,8 @@ def unique_order_generator(instance, new_order_id=None):
         oreder_id = f"{random_string_generator(size=4)}-{oreder_id}"
         return unique_order_generator(instance, oreder_id)
     return oreder_id
+
+
+def verify_email(email):
+    EMAIL_RGEX = re.compile("[^@]+@[^@]+\.[^@]+")
+    return bool(re.match(EMAIL_RGEX, email))

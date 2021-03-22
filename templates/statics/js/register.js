@@ -1,14 +1,14 @@
 $username = $('#username')
 $password = $('#password')
+$password_verify = $('#password_verify')
 $firstName = $('#first_name')
 $lastName = $('#last_name')
 $email = $('#email')
-$form = $("#login_from");
-$username.valid = false
-$password.valid = false
+$form = $("#register_btn");
+$alert = $("#alert");
+$alert.hide()
 
 function valid(e, item, HelpTextElement, feild) {
-    console.log(`e`, e)
     if (e.target.value === '') {
         item.addClass("is-invalid");
         item.removeClass("is-valid");
@@ -30,36 +30,40 @@ function valid(e, item, HelpTextElement, feild) {
     }
 }
 
-$('#username').change((e) => {
+$('#username').on("change click", (e) => {
     valid(e, $username, $("#usernameHelp"), "username");
 })
 
-$('#password').change((e) => {
+$('#password').on("change click", (e) => {
     valid(e, $password, null);
+    $('#password_verify').val("")
+    $('#password_verify').removeClass("is-valid");
+
 })
 
-$('#first_name').change((e) => {
+$('#password_verify').on("change click", (e) => {
+    console.log($('#password_verify').val());
+    console.log($('#password').val());
+    if ($('#password_verify').val() !== "" &&
+        $('#password').val() === $('#password_verify').val()) {
+        $('#password_verify').addClass("is-valid");
+        $('#password_verify').removeClass("is-invalid");
+        $password_verify.valid = true;
+    }
+    else {
+        $('#password_verify').removeClass("is-valid");
+        $('#password_verify').addClass("is-invalid");
+        $password_verify.valid = false;
+    }
+})
+
+$('#first_name').on("change click", (e) => {
     valid(e, $firstName, $("#firstHelpId"), "first name");
 })
-$('#last_name').change((e) => {
+$('#last_name').on("change click", (e) => {
     valid(e, $lastName, $("#lastHelpId"), "last name");
 })
-$('#email').change((e) => {
+$('#email').on("change click", (e) => {
     valid(e, $email, $("#emailHelpId"), "email adress");
 })
 
-
-$("#login_from").on('submit', (e) => {
-    e.preventDefault();
-    const items_count = $form[0].length
-
-    if (!$username.valid) {
-        return false;
-    }
-
-    if (!$password.valid) {
-        return false;
-    }
-
-    $form.submit()
-})

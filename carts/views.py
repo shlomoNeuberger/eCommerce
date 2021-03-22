@@ -85,22 +85,25 @@ class ChackoutView(View):
         cart, _ = Cart.objects.new_or_get(request)
         order, _ = Order.objects.new_or_get(billing_profile, cart)
         if order.is_ready():
+            # here is the transaction logic should be
             trnsaction_result = True  # Do transaction
-            order.set_paid()
-            print(request.session.values())
+            if trnsaction_result:
+                order.set_paid()
+            else:
+                return redirect("carts:checkout")
+
             try:
+                # clean all saved session variables
                 del request.session['cart_id']
                 del request.session['guest_id']
                 del request.session['cart_items']
+                del request.session['username_msg']
+                del request.session['register_msg']
             except:
                 pass
             return redirect("cart:done")
         return redirect('cart:chackout')
 
 
-class ChackoutDone(View):
-    def get(self, request: HttpRequest):
-        return render(request, 'carts/thank_you.html', {})
-
-    def post(self, request: HttpRequest):
-        return render(request, 'carts/thank_you.html', {})
+def ChackoutDone(request: HttpRequest):
+    return render(request, 'carts/thank_you.html', {})
