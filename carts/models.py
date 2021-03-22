@@ -12,10 +12,14 @@ User = settings.AUTH_USER_MODEL
 
 
 class CartModelManger(models.Manager):
+    """This model manger is for adding a custom get or create functionality"""
+
     def new_or_get(self, request: HttpRequest):
+        """Creates the cart from the cart id save in the session"""
         cart_id = request.session.get("cart_id", None)
         cart_obj, is_created = Cart.objects.get_or_create(id=cart_id)
         if not is_created and request.user.is_authenticated:
+            # This is for reffrencing the connected user with the current cart
             cart_obj.user = request.user
             cart_obj.save()
         request.session["cart_id"] = cart_obj.id
@@ -40,6 +44,7 @@ class Cart(models.Model):
 
 
 def pre_save_cart_reciver(sender, instance: Cart, action, *args, **kwargs):
+    """Do calculation of items in after proudcts list CHANGE ONLY not in create before saving """
     if "post" in action:
         products = instance.products.all()
         subtotal = 0
@@ -50,6 +55,7 @@ def pre_save_cart_reciver(sender, instance: Cart, action, *args, **kwargs):
 
 
 def pre_save_cart_total_reciver(sender, instance: Cart, *args, **kwargs):
+    """Change inforamtion of the total only if the subtotoal is changed"""
     if instance.total != instance.subtotal:
         instance.total = instance.subtotal
         instance.save()

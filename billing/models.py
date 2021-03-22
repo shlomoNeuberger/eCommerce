@@ -70,6 +70,10 @@ ADDRESS_TYPE = (
 
 
 class Address(models.Model):
+    """
+        This class represnt user address
+        either for billing or shipping
+    """
     billing_profile = models.ForeignKey(BillingProfile, on_delete=CASCADE)
     address_type = models.CharField(max_length=100, choices=ADDRESS_TYPE)
     address_line_1 = models.CharField(max_length=100)
@@ -80,7 +84,9 @@ class Address(models.Model):
     postal_code = models.CharField(max_length=100)
 
     def __str__(self) -> str:
+        """Override for better Understanding in the admin view"""
         return f"{self.billing_profile}"
 
-    def pretty_print (self):
+    def pretty_print(self):
+        """This used for printing the address in the final chacout screen"""
         return f"{self.address_line_1} ,{self.city} ,{self.postal_code}"
